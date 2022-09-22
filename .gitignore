@@ -1,2 +1,5 @@
 /data
 output_model.pth
+.ipynb_checkpoints/
+__pycache__/
+.gitignore
