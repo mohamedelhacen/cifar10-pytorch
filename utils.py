@@ -6,6 +6,9 @@ import torchvision
 import matplotlib.pyplot as plt
 import numpy as np
 
+
+device = torch.device('cuda:0' if torch.cuda.is_available else 'cpu')
+
 def save_model(model, path):
 	torch.save(model, path)
 
@@ -30,10 +33,10 @@ def test_accuracy(model, test_loader):
 
 
 def train(model, train_loader, test_loader, num_epochs, optimizer, loss_fn):
-	global device
+	
 	best_accuracy = 0.0
 	
-	device = torch.device('cuda:0' if torch.cuda.is_available else 'cpu')
+	
 	print("The model will be running on ", device, ' device')
 	model.to(device)
 
@@ -83,7 +86,7 @@ def test_batch(model, test_loader, classes, batch_size):
 	print('Real labels:', ' '.join('%5s' % classes[labels[j]] 
 									for j in range(batch_size)))		
 
-	outputs = model(images)
+	outputs = model(images.cuda())
 
 	_, predictions = torch.max(outputs, 1)
 	print('Predicted: ', ' '.join('%5s' % classes[predictions[j]] for j in range(batch_size)))
@@ -98,9 +101,9 @@ def test_classes(model, test_loader, number_of_labels, batch_size, classes):
 	with torch.no_grad():
 		for data in test_loader:
 			images, labels = data
-			outputs = model(images)
+			outputs = model(images.to(device))
 			_, predictions = torch.max(outputs, 1)
-			c = (predictions == labels).squeeze()
+			c = (predictions.cpu() == labels).squeeze()
 			for i in range(batch_size):
 				label = labels[i]
 				class_correct[label] += c[i].item()
