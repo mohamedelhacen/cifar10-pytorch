@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Showing image</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+
+</head>
+<body>
+	<h1>Showing image</h1>
+
+	<form action="" method="POST" enctype="multipart/form-data">
+		<input type="submit" value="predict">
+		<div>
+			<img src="{{ url_for('static', filename=value)}}" class="showed_image">
+		</div>
+		
+	</form>
+</body>
+</html>

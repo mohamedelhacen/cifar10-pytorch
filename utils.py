@@ -111,3 +111,18 @@ def test_classes(model, test_loader, number_of_labels, batch_size, classes):
 	
 	for i in range(number_of_labels):
 		print('Accuracy of %5s : %2d %%'%(classes[i], 100*class_correct[i]/class_total[i]))
+
+
+
+def allowed_images(filename, extentions):
+
+	if not '.' in filename:
+		return False
+
+	ext = filename.rsplit('.', 1)[1]
+
+	if ext.upper() in extentions:
+		return True
+
+	else:
+		return False
